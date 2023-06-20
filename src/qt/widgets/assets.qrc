@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/qss/dark.qss</file>
+        <file>resources/logo/leqi.ico</file>
+        <file>resources/images/fullscreen-8a.svg</file>
+        <file>resources/images/fullscreen.svg</file>
+        <file>resources/images/minimize-8a.svg</file>
+        <file>resources/images/minimize.svg</file>
+        <file>resources/images/close-8a.svg</file>
+        <file>resources/images/close.svg</file>
+        <file>resources/images/open-8a.svg</file>
+        <file>resources/images/open.svg</file>
+        <file>resources/images/play-8a.svg</file>
+        <file>resources/images/play.svg</file>
+        <file>resources/images/pause-8a.svg</file>
+        <file>resources/images/pause.svg</file>
+        <file>resources/images/stop-8a.svg</file>
+        <file>resources/images/stop.svg</file>
+        <file>resources/images/voice-8a.svg</file>
+        <file>resources/images/voice.svg</file>
+        <file>resources/images/mute-8a.svg</file>
+        <file>resources/images/mute.svg</file>
+        <file>resources/images/handle.svg</file>
+    </qresource>
+</RCC>

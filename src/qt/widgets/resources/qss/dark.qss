@@ -1,0 +1,118 @@
+QWidget {
+    background-color: #1c1c1c;
+    color: #a3a3a3;
+}
+
+LeqiButton {
+    border: 0px;
+}
+
+#leqiButton {
+    width: 98px;
+    margin-top: 3px;
+    font-size: 14px;
+    icon: url(:/resources/logo/leqi.ico);
+}
+
+#leqiButton:hover {
+    color: rgb(255, 255, 255);
+}
+
+#leqiButton::menu-indicator {
+    image: none;
+}
+
+#labelTitle {
+    font-size: 14px;
+    color: rgb(245, 145, 235);
+    margin-top: 3px;
+}
+
+#fullScreenButton {
+    icon: url(:/resources/images/fullscreen-8a.svg);
+}
+
+#fullScreenButton:hover {
+    icon: url(:/resources/images/fullscreen.svg);
+}
+
+#minimizeButton {
+    icon: url(:/resources/images/minimize-8a.svg);
+}
+
+#minimizeButton:hover {
+    icon: url(:/resources/images/minimize.svg);
+}
+
+#closeButton {
+    icon: url(:/resources/images/close-8a.svg);
+}
+
+#closeButton:hover {
+    icon: url(:/resources/images/close.svg);
+}
+
+#openButton {
+    icon: url(:/resources/images/open-8a.svg);
+}
+
+#openButton:hover {
+    icon: url(:/resources/images/open.svg);
+}
+
+#playButton {
+    icon: url(:/resources/images/play-8a.svg);
+}
+
+#playButton:hover {
+    icon: url(:/resources/images/play.svg);
+}
+
+#pauseButton {
+    icon: url(:/resources/images/pause-8a.svg);
+}
+
+#pauseButton:hover {
+    icon: url(:/resources/images/pause.svg);
+}
+
+#stopButton {
+    icon: url(:/resources/images/stop-8a.svg);
+}
+
+#stopButton:hover {
+    icon: url(:/resources/images/stop.svg);
+}
+
+QSlider::groove:horizontal {
+    height: 2px;
+    border: 1px solid rgba(28, 28, 28, 50);
+    border-radius: 2px;
+    background: rgba(138, 138, 138, 50);
+}
+
+QSlider::groove:horizontal:hover {
+    height: 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(28, 28, 28, 50);
+    background: rgba(138, 138, 138, 50);
+}
+
+QSlider::sub-page:horizontal {
+    background: rgb(255, 10, 255);
+}
+
+#labelDuration {
+    font-size: 13px;
+}
+
+QMenu::separator {
+    height: 1px;
+    background-color: #2e2e2e;
+    margin: 8px 3px;
+}
+
+QMenu::item:selected {
+    background-color: #2e2e2e;
+    color: #fff;
+}
