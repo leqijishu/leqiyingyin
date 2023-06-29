@@ -42,8 +42,10 @@ void LeqiYingYin::initMainWindow()
     loadStyleSheet("dark");
     setWindowIcon(QIcon(":/resources/logo/leqi.ico"));
 
-    connect(leqiVideoWidget, SIGNAL(fullScreenChanged(bool)), leqiTitleBar, SLOT(setFullScreen(bool)));
-    connect(leqiVideoWidget, SIGNAL(fullScreenChanged(bool)), leqiControlBar, SLOT(setFullScreen(bool)));
+    connect(leqiVideoWidget, SIGNAL(fullScreenChanged(bool)),
+            leqiTitleBar, SLOT(setFullScreen(bool)));
+    connect(leqiVideoWidget, SIGNAL(fullScreenChanged(bool)),
+            leqiControlBar, SLOT(setFullScreen(bool)));
 }
 
 LeqiTitleBar* LeqiYingYin::createTitleBar()
@@ -82,8 +84,10 @@ LeqiVideoWidget* LeqiYingYin::createVideoWidget()
     connect(leqiVideoWidget, SIGNAL(videoPause()), this, SLOT(togglePauseOrPlay()));
     connect(leqiVideoWidget, SIGNAL(videoStop()), this, SLOT(stopPlaying()));
     connect(leqiVideoWidget, SIGNAL(videoMute()), this, SLOT(toggleMute()));
-    connect(leqiVideoWidget, SIGNAL(videoAudioTrack(int)), this, SLOT(setAudioTrack(int)));
-    connect(leqiVideoWidget, &LeqiVideoWidget::togglePauseOrPlay, this, &LeqiYingYin::togglePauseOrPlay);
+    connect(leqiVideoWidget, SIGNAL(videoAudioTrack(int)),
+            this, SLOT(setAudioTrack(int)));
+    connect(leqiVideoWidget, &LeqiVideoWidget::togglePauseOrPlay,
+            this, &LeqiYingYin::togglePauseOrPlay);
     connect(leqiVideoWidget, SIGNAL(openFile()), this, SLOT(openFile()));
     connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
     connect(player, SIGNAL(durationChanged(qint64)), this, SLOT(durationChanged(qint64)));
@@ -125,27 +129,15 @@ void LeqiYingYin::openFile()
         this,
         TIP_OPEN,
         defaultDir,
-        "*.*");
+        FILE_FILTER
+        );
     if (fileName.isEmpty())
     {
         return;
     }
     
-    player->setSource(fileName);
-    leqiVideoWidget->setSource(fileName);
-    player->play();
-    emit setTitle(QFileInfo(fileName).baseName());
-    emit setRange(0, player->duration());
-    setWindowTitle(QFileInfo(fileName).baseName());
-    defaultDir = QFileInfo(fileName).path();
-    saveSettings();
-
-    disconnect(leqiTitleBar, SIGNAL(titleBarPlay()), this, SLOT(openFile()));
-    connect(leqiTitleBar, SIGNAL(titleBarPlay()), player, SLOT(play()));
-    disconnect(leqiVideoWidget, SIGNAL(videoPlay()), this, SLOT(openFile()));
-    connect(leqiVideoWidget, SIGNAL(videoPlay()), player, SLOT(play()));
-    disconnect(leqiControlBar, SIGNAL(barPlay()), this, SLOT(openFile()));
-    connect(leqiControlBar, SIGNAL(barPlay()), player, SLOT(play()));
+    resetSizes();
+    playVideo(fileName);
 }
 
 void LeqiYingYin::stopPlaying()
@@ -154,6 +146,7 @@ void LeqiYingYin::stopPlaying()
     player->setSource(QUrl(""));
     leqiVideoWidget->setSource("");
     emit setTitle("");
+    emit setDuration("00:00:00 / 00:00:00");
 
     connect(leqiTitleBar, SIGNAL(titleBarPlay()), this, SLOT(openFile()));
     connect(leqiVideoWidget, SIGNAL(videoPlay()), this, SLOT(openFile()));
@@ -322,6 +315,38 @@ void LeqiYingYin::setDefaultDir()
             )
             .value(0, QDir::homePath())
         ;
+}
+
+void LeqiYingYin::resetSizes()
+{
+    QSize resolution = player->metaData().value(QMediaMetaData::Resolution).toSize();
+    if (!resolution.isEmpty())
+    {
+        leqiVideoWidget->resize(resolution);
+        resize(resolution.width(),
+               leqiTitleBar->size().height() + leqiVideoWidget->size().height() + leqiControlBar->size().height());
+    }
+    else if (size() != mainWindowSize)
+        resize(mainWindowSize);
+}
+
+void LeqiYingYin::playVideo(const QString &fileName)
+{
+    player->setSource(fileName);
+    leqiVideoWidget->setSource(fileName);
+    player->play();
+    emit setTitle(QFileInfo(fileName).baseName());
+    emit setRange(0, player->duration());
+    setWindowTitle(QFileInfo(fileName).baseName());
+    defaultDir = QFileInfo(fileName).path();
+    saveSettings();
+
+    disconnect(leqiTitleBar, SIGNAL(titleBarPlay()), this, SLOT(openFile()));
+    connect(leqiTitleBar, SIGNAL(titleBarPlay()), player, SLOT(play()));
+    disconnect(leqiVideoWidget, SIGNAL(videoPlay()), this, SLOT(openFile()));
+    connect(leqiVideoWidget, SIGNAL(videoPlay()), player, SLOT(play()));
+    disconnect(leqiControlBar, SIGNAL(barPlay()), this, SLOT(openFile()));
+    connect(leqiControlBar, SIGNAL(barPlay()), player, SLOT(play()));
 }
 
 void LeqiYingYin::mousePressEvent(QMouseEvent *event)

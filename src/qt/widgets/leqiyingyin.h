@@ -85,6 +85,8 @@ private:
     void saveSettings();
     void saveSettings(const QString &group, const QString &key, const QString &value);
     void setDefaultDir();
+    void resetSizes();
+    void playVideo(const QString&);
 
     const QString settingsName = "/data/settings.ini";
 };

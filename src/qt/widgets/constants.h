@@ -28,6 +28,7 @@ const QString AUDIO_TRACK_PTH = QObject::tr("普通话");
 const QString AUDIO_TRACK_GY = QObject::tr("国语");
 const QString AUDIO_TRACK = QObject::tr("音轨 %1");
 const QString AUDIO_TRACK_NAME = QObject::tr("%1 - [%2]");
+const QString FILE_FILTER = QObject::tr("视频(*.mp4 *.mkv *.avi *.mov)");
 
 const QString HOME_PAGE = QObject::tr("https://gitee.com/leqijishu/leqiyingyin");
 const QString ABOUT_CONTENT = QObject::tr("乐其影音是一款基于Qt的开源免费软件\n\
